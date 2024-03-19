@@ -29,3 +29,9 @@ Route::get('/services','App\Http\Controllers\ServiceController@index');
 Route::post('/services','App\Http\Controllers\ServiceController@store');
 Route::put('/services/{id}','App\Http\Controllers\ServiceController@update');
 Route::delete('/services/{id}','App\Http\Controllers\ServiceController@destroy');
+
+/* ROUTE LICENCE */
+Route::get('/licences','App\Http\Controllers\LicenceController@index');
+Route::post('/licences','App\Http\Controllers\LicenceController@store');
+Route::put('/licences/{id}','App\Http\Controllers\LicenceController@update');
+Route::delete('/licences/{id}','App\Http\Controllers\LicenceController@destroy');
