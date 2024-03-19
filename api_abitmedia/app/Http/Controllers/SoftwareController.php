@@ -56,7 +56,7 @@ class SoftwareController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
           $software = Software::destroy($request->id);
           return $software;

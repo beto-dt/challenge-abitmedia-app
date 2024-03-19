@@ -8,5 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Software extends Model
 {
     use HasFactory;
+    protected $table = 'softwares';
+
         //proctected $fillable = ['descripcion','precio','stock'];
 }

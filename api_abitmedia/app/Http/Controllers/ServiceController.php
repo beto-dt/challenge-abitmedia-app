@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Service;
 
 
@@ -28,6 +29,7 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
           $service = new Service();
+          $service->sdku = Str::random(10);
           $service->descripcion = $request->descripcion;
           $service->precio = $request->precio;
 
@@ -55,7 +57,7 @@ class ServiceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Request $request)
     {
       $service = Service::destroy($request->id);
       return $service;
