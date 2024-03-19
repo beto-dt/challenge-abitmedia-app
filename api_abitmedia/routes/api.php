@@ -17,3 +17,15 @@ use Illuminate\Support\Facades\Route;
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
+
+/* ROUTE SOFTWARE */
+Route::get('/softwares','App\Http\Controllers\SoftwareController@index');
+Route::post('/softwares','App\Http\Controllers\SoftwareController@store');
+Route::put('/softwares/{id}','App\Http\Controllers\SoftwareController@update');
+Route::delete('/softwares/{id}','App\Http\Controllers\SoftwareController@destroy');
+
+/* ROUTE SERVICE */
+Route::get('/services','App\Http\Controllers\ServiceController@index');
+Route::post('/services','App\Http\Controllers\ServiceController@store');
+Route::put('/services/{id}','App\Http\Controllers\ServiceController@update');
+Route::delete('/services/{id}','App\Http\Controllers\ServiceController@destroy');
