@@ -15,6 +15,7 @@ return new class extends Migration
     {
         Schema::create('softwares', function (Blueprint $table) {
             $table->id();
+            $table->string('sdku');
             $table->string('descripcion');
             $table->float('precio');
             $table->integer('stock');

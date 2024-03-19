@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use App\Models\Software;
 
 
@@ -28,6 +29,7 @@ class SoftwareController extends Controller
     public function store(Request $request)
     {
           $software = new Software();
+          $software->sdku = Str::random(10);
           $software->descripcion = $request->descripcion;
           $software->precio = $request->precio;
           $software->stock = $request->stock;

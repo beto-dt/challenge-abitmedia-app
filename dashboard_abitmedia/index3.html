@@ -32,23 +32,19 @@
                         <thead>
                         <tr class="indigo darken-4">
                             <th class="white--text">ID</th>
-                            <th class="white--text">SDKU</th>
-                            <th class="white--text">DESCRIPCIÓN</th>
-                            <th class="white--text">PRECIO</th>
-                            <th class="white--text">STOCK</th>
+                            <th class="white--text">SOFTWARE</th>
+                            <th class="white--text">NUM_LICENCE</th>
                             <th class="white--text text-center">ACCIONES</th>
                         </tr>
                         </thead>
                         <tbody>
-                        <tr v-for="software in softwares" :key="software.id">
-                            <td>{{ software.id }}</td>
-                            <td>{{ software.sdku }}</td>
-                            <td>{{ software.descripcion }}</td>
-                            <td>{{ software.precio }}</td>
-                            <td>{{ software.stock }}</td>
+                        <tr v-for="licence in licences" :key="licence.id">
+                            <td>{{ licence.id }}</td>
+                            <td>{{ licence.id_software }}</td>
+                            <td>{{ licence.num_licence }}</td>
                             <td>
-                                <v-btn fab dark color="#00BCD4" small @click="formEditar(software.id, software.descripcion, software.precio, software.stock)"><v-icon>mdi-pencil</v-icon></v-btn>
-                                <v-btn fab dark color="#E53935" small @click="borrar(software.id)"><v-icon>mdi-delete</v-icon></v-btn>
+                                <v-btn fab dark color="#00BCD4" small @click="formEditar(licence.id, licence.id_software, licence.num_licence)"><v-icon>mdi-pencil</v-icon></v-btn>
+                                <v-btn fab dark color="#E53935" small @click="borrar(licence.id)"><v-icon>mdi-delete</v-icon></v-btn>
                             </td>
                         </tr>
                         </tbody>
@@ -58,20 +54,17 @@
             <!-- Componente de Diálogo para CREAR y EDITAR -->
             <v-dialog v-model="dialog" max-width="500">
                 <v-card>
-                    <v-card-title class="blue darken-2 white--text">Artículo</v-card-title>
+                    <v-card-title class="blue darken-2 white--text">Service</v-card-title>
                     <v-card-text>
                         <v-form>
                             <v-container>
                                 <v-row>
-                                    <input v-model="software.id" hidden></input>
+                                    <input v-model="licence.id" hidden></input>
                                     <v-col cols="12" md="4">
-                                        <v-text-field v-model="software.descripcion" label="Descripción" solo required>{{software.descripcion}}</v-text-field>
+                                        <v-text-field v-model="licence.id_software" label="Software" solo required>{{licence.id_software}}</v-text-field>
                                     </v-col>
                                     <v-col cols="12" md="4">
-                                        <v-text-field v-model="software.precio" label="Precio" type="number" prefix="$" solo required></v-text-field>
-                                    </v-col>
-                                    <v-col cols="12" md="4">
-                                        <v-text-field v-model="software.stock" label="Stock" type="number" solo required></v-text-field>
+                                        <v-text-field v-model="licence.num_licence" label="Num_licence" solo required>{{licence.num_licence}}</v-text-field>
                                     </v-col>
                                 </v-row>
                             </v-container>
@@ -95,21 +88,20 @@
 
 <script>
 
-    let url = 'http://127.0.0.1:8000/api/softwares/';
+    let url = 'http://127.0.0.1:8000/api/licences/';
 
     new Vue({
         el: '#app',
         vuetify: new Vuetify(),
         data() {
             return {
-                softwares: [],
+                licences: [],
                 dialog: false,
                 operacion: '',
-                software:{
+                licence:{
                     id: null,
-                    descripcion:'',
-                    precio:'',
-                    stock:''
+                    id_software:'',
+                    num_licence:''
                 }
             }
         },
@@ -121,23 +113,22 @@
             mostrar:function(){
                 axios.get(url)
                     .then(response =>{
-                        this.softwares = response.data;
+                        this.licences = response.data;
                     })
             },
             crear:function(){
-                let parametros = {descripcion:this.software.descripcion, precio:this.software.precio,stock:this.software.stock };
+                let parametros = {id_software:this.licence.id_software, num_licence:this.licence.num_licence };
                 axios.post(url, parametros)
                     .then(response =>{
                         this.mostrar();
                     });
-                this.software.descripcion="";
-                this.software.precio="";
-                this.software.stock="";
+                this.licence.id_software="";
+                this.licence.num_licence="";
             },
             editar: function(){
-                let parametros = {descripcion:this.software.descripcion, precio:this.software.precio, stock:this.software.stock, id:this.software.id};
+                let parametros = {id_software:this.licence.id_software, num_licence:this.licence.num_licence, id:this.licence.id};
                 //console.log(parametros);
-                axios.put(url+this.software.id, parametros)
+                axios.put(url+this.licence.id, parametros)
                     .then(response => {
                         this.mostrar();
                     })
@@ -176,16 +167,14 @@
             formNuevo:function () {
                 this.dialog=true;
                 this.operacion='crear';
-                this.software.descripcion='';
-                this.software.precio='';
-                this.software.stock='';
+                this.licence.id_software='';
+                this.licence.num_licence='';
             },
-            formEditar:function(id, descripcion, precio, stock){
+            formEditar:function(id, id_software, num_licence){
                 //capturamos los datos del registro seleccionado y los mostramos en el formulario
-                this.software.id = id;
-                this.software.descripcion = descripcion;
-                this.software.precio = precio;
-                this.software.stock = stock;
+                this.licence.id = id;
+                this.licence.id_software = id_software;
+                this.licence.num_licence = num_licence;
                 this.dialog=true;
                 this.operacion='editar';
             }
