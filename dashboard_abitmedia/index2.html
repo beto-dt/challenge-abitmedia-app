@@ -113,14 +113,14 @@
         methods:{
             //MÉTODOS PARA EL CRUD
             mostrar:function(){
-                axios.get(url)
+                axios.get(url, { headers: { x_api_key: 'ABCDEF123456' } })
                     .then(response =>{
                         this.services = response.data;
                     })
             },
             crear:function(){
                 let parametros = {descripcion:this.service.descripcion, precio:this.service.precio };
-                axios.post(url, parametros)
+                axios.post(url, parametros, { headers: { x_api_key: 'ABCDEF123456' } })
                     .then(response =>{
                         this.mostrar();
                     });
@@ -130,7 +130,7 @@
             editar: function(){
                 let parametros = {descripcion:this.service.descripcion, precio:this.service.precio, id:this.service.id};
                 //console.log(parametros);
-                axios.put(url+this.service.id, parametros)
+                axios.put(url+this.service.id, parametros, { headers: { x_api_key: 'ABCDEF123456' } })
                     .then(response => {
                         this.mostrar();
                     })
@@ -146,7 +146,7 @@
                 }).then((result) => {
                     if (result.isConfirmed) {
                         //procedimiento borrar
-                        axios.delete(url+id)
+                        axios.delete(url+id, { headers: { x_api_key: 'ABCDEF123456' } })
                             .then(response =>{
                                 this.mostrar();
                             });
