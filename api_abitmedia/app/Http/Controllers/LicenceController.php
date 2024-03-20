@@ -29,7 +29,7 @@ class LicenceController extends Controller
     {
           $licence = new Licence();
           $licence->id_software = $request->id_software;
-          $licence->num_licence = $request->num_licence;
+          $licence->num_licence = mt_rand(1000000000,9999999999). " - " .mt_rand(1000000000,9999999999). " - " .mt_rand(1000000000,9999999999). " - " .mt_rand(1000000000,9999999999). " - " .mt_rand(1000000000,9999999999). " - " .mt_rand(1000000000,9999999999). " - " .mt_rand(1000000000,9999999999). " - " .mt_rand(1000000000,9999999999). " - " .mt_rand(1000000000,9999999999). " - " .mt_rand(1000000000,9999999999);
           $licence->save();
     }
 

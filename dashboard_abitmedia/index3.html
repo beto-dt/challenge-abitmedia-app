@@ -63,9 +63,6 @@
                                     <v-col cols="12" md="4">
                                         <v-text-field v-model="licence.id_software" label="Software" solo required>{{licence.id_software}}</v-text-field>
                                     </v-col>
-                                    <v-col cols="12" md="4">
-                                        <v-text-field v-model="licence.num_licence" label="Num_licence" solo required>{{licence.num_licence}}</v-text-field>
-                                    </v-col>
                                 </v-row>
                             </v-container>
                     </v-card-text>
@@ -100,8 +97,7 @@
                 operacion: '',
                 licence:{
                     id: null,
-                    id_software:'',
-                    num_licence:''
+                    id_software:''
                 }
             }
         },
@@ -117,16 +113,15 @@
                     })
             },
             crear:function(){
-                let parametros = {id_software:this.licence.id_software, num_licence:this.licence.num_licence };
+                let parametros = {id_software:this.licence.id_software };
                 axios.post(url, parametros)
                     .then(response =>{
                         this.mostrar();
                     });
                 this.licence.id_software="";
-                this.licence.num_licence="";
             },
             editar: function(){
-                let parametros = {id_software:this.licence.id_software, num_licence:this.licence.num_licence, id:this.licence.id};
+                let parametros = {id_software:this.licence.id_software, id:this.licence.id};
                 //console.log(parametros);
                 axios.put(url+this.licence.id, parametros)
                     .then(response => {
@@ -168,13 +163,11 @@
                 this.dialog=true;
                 this.operacion='crear';
                 this.licence.id_software='';
-                this.licence.num_licence='';
             },
             formEditar:function(id, id_software, num_licence){
                 //capturamos los datos del registro seleccionado y los mostramos en el formulario
                 this.licence.id = id;
                 this.licence.id_software = id_software;
-                this.licence.num_licence = num_licence;
                 this.dialog=true;
                 this.operacion='editar';
             }
